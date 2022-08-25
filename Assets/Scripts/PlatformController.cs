@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlatformController : MonoBehaviour
@@ -36,17 +37,17 @@ public class PlatformController : MonoBehaviour
     {
         if (SkipPlatform || !IsCurrentPlatform || !PlayerController.SharedInstance.ReadyToBuildBridge) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !BuildInProgress && !_rotationInProgress)
+        if(BridgeBuildStarted() && !BuildInProgress && !_rotationInProgress)
         {
             SetStartBuildSettings();
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && BuildInProgress && _bridgePrefab.transform.localScale.y < GameManager.SharedInstance.BridgeMaxLength)
+        if (BridgeBuildInProgress() && BuildInProgress && _bridgePrefab.transform.localScale.y < GameManager.SharedInstance.BridgeMaxLength)
         {
             SetNewBridgeScale();
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse0) && BuildInProgress)
+        if (BridgeBuildComplete() && BuildInProgress)
         {
             StartBridgeRotation();
         }
@@ -130,5 +131,29 @@ public class PlatformController : MonoBehaviour
     public Vector3 GetPlatformScale()
     {
         return _landPrefab.transform.lossyScale;
+    }
+
+    private bool BridgeBuildStarted()
+    {
+        var touchStarted = Input.touchCount > 0 && Input.touches.FirstOrDefault().phase == TouchPhase.Began;
+        var leftMouseDown = Input.GetKeyDown(KeyCode.Mouse0);
+
+        return touchStarted || leftMouseDown;
+    }
+
+    private bool BridgeBuildInProgress()
+    {
+        var touchStationary = Input.touchCount > 0 && Input.touches.FirstOrDefault().phase == TouchPhase.Stationary;
+        var leftMouseOnHold = Input.GetKey(KeyCode.Mouse0);
+
+        return touchStationary || leftMouseOnHold;
+    }
+
+    private bool BridgeBuildComplete()
+    {
+        var touchEnded = Input.touchCount > 0 && Input.touches.FirstOrDefault().phase == TouchPhase.Ended;
+        var leftMouseRelease = Input.GetKeyUp(KeyCode.Mouse0);
+
+        return touchEnded || leftMouseRelease;
     }
 }
