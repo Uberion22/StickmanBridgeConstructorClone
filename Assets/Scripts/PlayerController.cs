@@ -3,19 +3,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator _playerAnimator;
-    public static bool ReadyToBuildBridge;
+    [SerializeField] private ParticleSystem _runSystem;
+    [SerializeField] private ParticleSystem _smokeSystem;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _buildComplete;
+    [SerializeField] private AudioClip _buildInProgress;
+
+    public bool ReadyToBuildBridge;
     
     public static PlayerController SharedInstance;
-
-    private float _timeScale;
-    private int _scorePoints = -1;
-    private bool _isGameStarted;
 
     void Awake()
     {
         SharedInstance = this;
-        _timeScale = Time.timeScale;
-        //Time.timeScale = 0;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
                 InterfaceManager.SharedInstance.ShowOrHideHelpImage(true);
                 groundController.IsCurrentPlatform = true;
                 ReadyToBuildBridge = true;
-                PlayMoveAnimation(0);
+                PlayMoveAnimation(false);
                 _playerAnimator.SetTrigger("ReadyToBuild");
             }
         }
@@ -49,13 +49,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void PlayMoveAnimation(float speed)
+    public void PlayMoveAnimation(bool play)
     {
-        _playerAnimator.SetFloat("Speed_f", speed);
+        if (play)
+        {
+            _playerAnimator.SetFloat("Speed_f", 1);
+            _runSystem.Play();
+        }
+        else
+        {
+            _playerAnimator.SetFloat("Speed_f", 0);
+            _runSystem.Stop();
+        }
+        
     }
 
     public void BuildCompleteAnimation()
     {
         _playerAnimator.SetTrigger("BuildComplete");
+
+    }
+
+    public void BuildStarted()
+    {
+        _audioSource.clip = _buildInProgress;
+        _audioSource.Play();
+    }
+
+    public void BuildEnded()
+    {
+        _audioSource.Stop();
+        _audioSource.clip = _buildComplete;
+        _audioSource.Play();
+        _smokeSystem.Play();
     }
 }

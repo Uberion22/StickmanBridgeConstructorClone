@@ -29,7 +29,7 @@ public class PlatformController : MonoBehaviour
         if (!GameManager.SharedInstance.IsGameStarted) return;
 
         MoveLeft();
-        if (SkipPlatform || !IsCurrentPlatform || !PlayerController.ReadyToBuildBridge) return;
+        if (SkipPlatform || !IsCurrentPlatform || !PlayerController.SharedInstance.ReadyToBuildBridge) return;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && !BuildInProgress && !_rotationInProgress)
         {
@@ -59,6 +59,7 @@ public class PlatformController : MonoBehaviour
 
     private void SetStartBuildSettings()
     {
+        PlayerController.SharedInstance.BuildStarted();
         BuildInProgress = true;
         _bridgePrefab.gameObject.SetActive(true);
         _buildPoint = _landPrefab.transform.position;
@@ -79,6 +80,7 @@ public class PlatformController : MonoBehaviour
 
     private void StartBridgeRotation()
     {
+        PlayerController.SharedInstance.BuildEnded();
         _currentTime = 0;
         BuildInProgress = false;
         _rotationInProgress = true;
@@ -94,17 +96,17 @@ public class PlatformController : MonoBehaviour
     private void ResetFlagsWhenBuildComplete()
     {
         _currentTime = GameManager.SharedInstance.BridgeRotationTime;
-        PlayerController.ReadyToBuildBridge = false;
+        PlayerController.SharedInstance.ReadyToBuildBridge = false;
         IsCurrentPlatform = false;
         BuildInProgress = false;
         _rotationInProgress = false;
-        PlayerController.SharedInstance.PlayMoveAnimation(1);
+        PlayerController.SharedInstance.PlayMoveAnimation(true);
         PlayerController.SharedInstance.BuildCompleteAnimation();
     }
 
     private void MoveLeft()
     {
-        if (PlayerController.ReadyToBuildBridge)
+        if (PlayerController.SharedInstance.ReadyToBuildBridge)
         {
             //PlayerController.
             return;

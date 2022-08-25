@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = _timeScale;
         _isGameStarted = true;
-        PlayerController.SharedInstance.PlayMoveAnimation(1);
+        PlayerController.SharedInstance.PlayMoveAnimation(true);
     }
 
     public void RestartGame()
