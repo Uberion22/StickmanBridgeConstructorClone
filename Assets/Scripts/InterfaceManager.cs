@@ -57,7 +57,7 @@ public class InterfaceManager : MonoBehaviour
     {
         while (_remainingRestartTime > 0)
         {
-            _timeToRestartText.text = $"GameOver!\n Restarted after {_remainingRestartTime}!";
+            _timeToRestartText.text = $"GameOver!\nYourScore: {GameManager.SharedInstance.ScorePoints}. \n Restarted after {_remainingRestartTime}!";
             yield return new WaitForSeconds(1);
             _remainingRestartTime--;
         }
