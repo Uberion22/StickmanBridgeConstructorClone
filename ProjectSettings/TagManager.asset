@@ -7,6 +7,9 @@ TagManager:
   - BuildPoint
   - Bridge
   - Ground
+  - BackGround
+  - StartPlatform
+  - Platform
   layers:
   - Default
   - TransparentFX

@@ -3,7 +3,7 @@ using UnityEngine;
 public class BuildPoint : MonoBehaviour
 {
     private PlatformController _groundController;
-    // Start is called before the first frame update
+
     void Start()
     {
         _groundController = GetComponentInParent<PlatformController>();
@@ -13,7 +13,7 @@ public class BuildPoint : MonoBehaviour
     {
         if(_groundController.BuildInProgress) return;
 
-        if (other.CompareTag("Bridge"))
+        if (other.CompareTag(Tags.BridgeTag))
         {
             _groundController.SkipPlatform = true;
         }
@@ -21,7 +21,7 @@ public class BuildPoint : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Bridge"))
+        if (collision.gameObject.CompareTag(Tags.BridgeTag))
         {
             _groundController.SkipPlatform = true;
         }

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("BuildPoint"))
+        if (other.CompareTag(Tags.BuildPointTag))
         {
             GameManager.SharedInstance.AddScorePoints(1);
             var groundController = other.gameObject.GetComponentInParent<PlatformController>();
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
                 _playerAnimator.SetTrigger("ReadyToBuild");
             }
         }
-        else if(other.CompareTag("Ground"))
+        else if(other.CompareTag(Tags.GroundTag))
         {
             GameManager.SharedInstance.StopGame();
         }
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("BuildPoint"))
+        if (other.CompareTag(Tags.BuildPointTag))
         {
             InterfaceManager.SharedInstance.ShowOrHideHelpImage(false);
             other.gameObject.GetComponentInParent<PlatformController>().IsCurrentPlatform = false;

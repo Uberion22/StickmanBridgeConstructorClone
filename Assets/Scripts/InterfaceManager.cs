@@ -11,7 +11,7 @@ public class InterfaceManager : MonoBehaviour
 
     public static InterfaceManager SharedInstance;
 
-    private float _remaitingRestartTime;
+    private float _remainingRestartTime;
 
     void Awake()
     {
@@ -44,7 +44,7 @@ public class InterfaceManager : MonoBehaviour
     private void RestartGame()
     {
         _timeToRestartText.gameObject.SetActive(true);
-        _remaitingRestartTime = GameManager.SharedInstance.RestartGameTime;
+        _remainingRestartTime = GameManager.SharedInstance.RestartGameTime;
         StartCoroutine(ShowTimeToRestart());
     }
 
@@ -55,11 +55,11 @@ public class InterfaceManager : MonoBehaviour
 
     private IEnumerator ShowTimeToRestart()
     {
-        while (_remaitingRestartTime > 0)
+        while (_remainingRestartTime > 0)
         {
-            _timeToRestartText.text = $"GameOver!\n Restarted on {_remaitingRestartTime}!";
+            _timeToRestartText.text = $"GameOver!\n Restarted after {_remainingRestartTime}!";
             yield return new WaitForSeconds(1);
-            _remaitingRestartTime--;
+            _remainingRestartTime--;
         }
     }
 }

@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         SharedInstance = this;
         _timeScale = Time.timeScale;
-        //Time.timeScale = 0;
     }
 
     public void AddScorePoints(int pointsToAdd)
@@ -46,7 +45,6 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
-        //Time.timeScale = 0;
         _isGameStarted = false;
         OnGameStopped?.Invoke();
         StartCoroutine(StartRestartingTimer());

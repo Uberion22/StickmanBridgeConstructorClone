@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class RepeatBackground : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _boxCollider2D;

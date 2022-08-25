@@ -82,9 +82,10 @@ GameObject:
   - component: {fileID: 3716307142710136554}
   - component: {fileID: 3716307142710136548}
   - component: {fileID: 3716307142710136549}
+  - component: {fileID: -6815291474681977269}
   m_Layer: 0
   m_Name: PlatformBlock (5)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3716307142710136551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dac2b18f62d3cd46a8114ad268af7d4, type: 3}
+  m_Script: {fileID: 11500000, guid: c7fb7a32220f1ee46abe6470a9e7ca79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _bridgePrefab: {fileID: 3716307144003074828}
@@ -150,6 +151,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4912324, y: 2.999223}
   m_EdgeRadius: 0
+--- !u!114 &-6815291474681977269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3716307142710136551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217327e66017bb345a12f14151e33d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3716307143952727063
 GameObject:
   m_ObjectHideFlags: 0
